@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Jazeera University">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f5fbff" />
+      <stop offset="100%" stop-color="#eaf7ff" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" rx="28" fill="url(#bg)"/>
+  <path d="M42 61 L100 28 L158 61 V139 C158 153 147 164 133 164 H67 C53 164 42 153 42 139 Z" fill="#09265b"/>
+  <path d="M68 76 H132 V96 H68 Z" fill="#16843b"/>
+  <path d="M62 54 L100 34 L138 54 V131 C138 142 130 150 119 150 H81 C70 150 62 142 62 131 Z" fill="#fff" opacity="0.08"/>
+  <path d="M58 114 C58 95 73 80 92 80 H108 C127 80 142 95 142 114 V134 H58 Z" fill="#0878bd"/>
+  <path d="M74 61 H126 V76 H74 Z" fill="#ffffff" opacity="0.9"/>
+  <path d="M100 94 L115 130 H85 Z" fill="#ffffff"/>
+  <circle cx="100" cy="64" r="22" fill="#16843b"/>
+  <path d="M100 50 L109 62 L123 63 L113 73 L117 87 L100 80 L83 87 L87 73 L77 63 L91 62 Z" fill="#ffffff"/>
+  <text x="100" y="172" text-anchor="middle" font-size="17" font-weight="700" fill="#09265b" font-family="Arial, Helvetica, sans-serif">JAZEERA</text>
+</svg>

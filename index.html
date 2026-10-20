@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#09265b" />
+    <title>Jazeera University Student Complaints & Feedback</title>
+    <style>
+      :root {
+        --navy: #09265b;
+        --blue: #0878bd;
+        --sky: #dff2ff;
+        --green: #16843b;
+        --ink: #17243a;
+        --muted: #66758b;
+        --line: #dce5ef;
+        --bg: #f3f7fc;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--ink);
+        background: linear-gradient(180deg, #eaf5ff 0, var(--bg) 340px);
+        min-height: 100vh;
+        padding: 24px 14px;
+      }
+
+      .wrap {
+        max-width: 760px;
+        margin: 0 auto;
+      }
+
+      .hero {
+        background: var(--navy);
+        color: white;
+        border-radius: 22px 22px 0 0;
+        padding: 24px 22px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 5px solid var(--green);
+      }
+
+      .logo {
+        width: 106px;
+        height: 106px;
+        object-fit: contain;
+        background: white;
+        padding: 6px;
+        border-radius: 18px;
+        display: block;
+        margin: 0 auto 12px;
+      }
+
+      .hero h1 {
+        margin: 8px 0 6px;
+        font-size: clamp(23px, 4vw, 31px);
+      }
+
+      .hero p {
+        margin: 5px 0;
+        color: #e4f3ff;
+        line-height: 1.5;
+      }
+
+      .tag {
+        display: inline-block;
+        margin-top: 9px;
+        padding: 6px 11px;
+        border-radius: 30px;
+        background: rgba(255,255,255,.13);
+        font-size: 12px;
+        letter-spacing: .3px;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid var(--line);
+        border-top: 0;
+        border-radius: 0 0 22px 22px;
+        padding: clamp(18px, 4vw, 32px);
+        box-shadow: 0 15px 38px rgba(9,38,91,.09);
+      }
+
+      .notice {
+        background: #eef8ff;
+        border-left: 4px solid var(--blue);
+        padding: 12px 14px;
+        border-radius: 8px;
+        color: #29445f;
+        line-height: 1.5;
+        margin-bottom: 22px;
+        font-size: 14px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 17px;
+      }
+
+      .field {
+        margin-bottom: 17px;
+      }
+
+      .field.full {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        display: block;
+        font-weight: 700;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .required {
+        color: #c42b3a;
+      }
+
+      input, select, textarea {
+        width: 100%;
+        padding: 13px 14px;
+        border: 1px solid #cbd7e5;
+        border-radius: 10px;
+        background: #fff;
+        color: var(--ink);
+        font: inherit;
+        outline: none;
+      }
+
+      input:focus, select:focus, textarea:focus {
+        border-color: var(--blue);
+        box-shadow: 0 0 0 3px #0878bd20;
+        background: #f5fbff;
+      }
+
+      textarea {
+        min-height: 145px;
+        resize: vertical;
+        line-height: 1.5;
+      }
+
+      .help {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 6px;
+        line-height: 1.4;
+      }
+
+      .buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      button {
+        border: 0;
+        border-radius: 11px;
+        padding: 14px 16px;
+        font-weight: 700;
+        font-size: 15px;
+        cursor: pointer;
+      }
+
+      .email {
+        background: var(--navy);
+        color: white;
+      }
+
+      .whatsapp {
+        background: var(--green);
+        color: white;
+      }
+
+      button:hover {
+        filter: brightness(1.08);
+      }
+
+      .preview {
+        margin: 18px 0 20px;
+        padding: 18px;
+        border: 1px solid #cfe2f5;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #f5fbff, #f0fff5);
+      }
+
+      .preview-head {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-bottom: 12px;
+        margin-bottom: 12px;
+        border-bottom: 2px solid #d9e9f7;
+      }
+
+      .preview-mark {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        background: var(--navy);
+        color: white;
+        font-size: 19px;
+        font-weight: 700;
+      }
+
+      .preview-title {
+        color: var(--navy);
+        font-weight: 800;
+        font-size: 16px;
+      }
+
+      .preview-subtitle {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 3px;
+      }
+
+      .preview-row {
+        display: grid;
+        grid-template-columns: 155px 1fr;
+        gap: 10px;
+        padding: 9px 0;
+        border-bottom: 1px solid #e3edf5;
+        line-height: 1.5;
+      }
+
+      .preview-row:last-child {
+        border-bottom: 0;
+      }
+
+      .preview-label {
+        color: var(--navy);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .preview-value {
+        color: #23344c;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+      }
+
+      .preview-details {
+        white-space: pre-wrap;
+      }
+
+      .footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+        margin: 18px 0 0;
+        line-height: 1.6;
+      }
+
+      .footer a {
+        color: var(--navy);
+      }
+
+      @media (max-width: 560px) {
+        .grid, .buttons {
+          grid-template-columns: 1fr;
+        }
+
+        body {
+          padding: 12px 9px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="hero">
+        <img class="logo" src="assets/logo.svg" alt="Jazeera University logo" />
+        <h1>Jazeera University</h1>
+        <p>Student Complaints &amp; Feedback</p>
+        <p>Foomka Cabashooyinka iyo Talooyinka Ardayda</p>
+        <span class="tag">GOODNESS · DISCIPLINE · KNOWLEDGE</span>
+      </header>
+
+      <section class="card">
+        <div class="notice">
+          Please complete the form below. Fields marked with an asterisk are required.
+        </div>
+
+        <form id="feedbackForm" novalidate>
+          <div class="grid">
+            <div class="field">
+              <label for="studentName">Full student name <span class="required">*</span></label>
+              <input id="studentName" name="studentName" autocomplete="name" required autofocus placeholder="Enter full name" />
+            </div>
+
+            <div class="field">
+              <label for="batch">Batch <span class="required">*</span></label>
+              <input id="batch" name="batch" required placeholder="Example: Batch 12" />
+            </div>
+
+            <div class="field full">
+              <label for="faculty">Faculty <span class="required">*</span></label>
+              <select id="faculty" name="faculty" required>
+                <option value="">-- Select your faculty --</option>
+                <option>Faculty of Medicine &amp; Surgery</option>
+                <option>Faculty of Health Sciences</option>
+                <option>Faculty of Engineering &amp; Technology</option>
+                <option>Faculty of Computer Science and IT</option>
+                <option>Faculty of Agricultural Science</option>
+                <option>Faculty of Veterinary Science</option>
+                <option>Faculty of Economics and Management Science</option>
+                <option>Faculty of Education</option>
+                <option>Faculty of Sharia</option>
+                <option>Faculty of Dentistry</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="type">Feedback or complaint type <span class="required">*</span></label>
+              <select id="type" name="type" required>
+                <option value="">-- Select type --</option>
+                <option>Complaint</option>
+                <option>Suggestion</option>
+                <option>Academic issue</option>
+                <option>University services</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="details">Complaint or feedback details <span class="required">*</span></label>
+              <textarea id="details" name="details" required placeholder="Please clearly describe your complaint or feedback..."></textarea>
+              <div class="help">Please do not include sensitive or unnecessary personal information.</div>
+            </div>
+          </div>
+
+          <section class="preview" aria-live="polite">
+            <div class="preview-head">
+              <div class="preview-mark">JU</div>
+              <div>
+                <div class="preview-title">JAZEERA UNIVERSITY</div>
+                <div class="preview-subtitle">Student Complaint &amp; Feedback · Message preview</div>
+              </div>
+            </div>
+            <div class="preview-row"><div class="preview-label">Student name</div><div class="preview-value" id="pvName">—</div></div>
+            <div class="preview-row"><div class="preview-label">Faculty</div><div class="preview-value" id="pvFaculty">—</div></div>
+            <div class="preview-row"><div class="preview-label">Batch</div><div class="preview-value" id="pvBatch">—</div></div>
+            <div class="preview-row"><div class="preview-label">Type</div><div class="preview-value" id="pvType">—</div></div>
+            <div class="preview-row"><div class="preview-label">Details</div><div class="preview-value preview-details" id="pvDetails">—</div></div>
+          </section>
+
+          <div class="buttons">
+            <button class="email" type="button" id="sendEmail">✉️ Send by Email</button>
+            <button class="whatsapp" type="button" id="sendWhatsApp">WhatsApp →</button>
+          </div>
+        </form>
+
+        <p class="footer">
+          Jazeera University · Digfeer Street, Hodan District, Mogadishu<br />
+          <a href="https://jazeerauniversity.edu.so/" target="_blank" rel="noopener">Official website</a>
+        </p>
+      </section>
+    </main>
+
+    <script>
+      const form = document.getElementById('feedbackForm');
+
+      function updatePreview() {
+        const data = new FormData(form);
+        const keys = { pvName: 'studentName', pvFaculty: 'faculty', pvBatch: 'batch', pvType: 'type', pvDetails: 'details' };
+
+        for (const [id, key] of Object.entries(keys)) {
+          const el = document.getElementById(id);
+          if (el) el.textContent = String(data.get(key) || '').trim() || '—';
+        }
+      }
+
+      function getData() {
+        if (!form.reportValidity()) return null;
+        const data = new FormData(form);
+
+        return {
+          name: String(data.get('studentName') || '').trim(),
+          faculty: String(data.get('faculty') || '').trim(),
+          batch: String(data.get('batch') || '').trim(),
+          type: String(data.get('type') || '').trim(),
+          details: String(data.get('details') || '').trim()
+        };
+      }
+
+      function formatSubmissionText(d) {
+        return [
+          '🎓 *JAZEERA UNIVERSITY*',
+          '*STUDENT COMPLAINT & FEEDBACK*',
+          '━━━━━━━━━━━━━━━━━━━━',
+          '',
+          '👤 *Student Name:* ' + d.name,
+          '🏛️ *Faculty:* ' + d.faculty,
+          '📚 *Batch:* ' + d.batch,
+          '📌 *Type:* ' + d.type,
+          '',
+          '📝 *DETAILS*',
+          d.details,
+          '',
+          '━━━━━━━━━━━━━━━━━━━━',
+          'Thank you.',
+          '*Jazeera University Student Feedback System*'
+        ].join('\n');
+      }
+
+      form.addEventListener('input', updatePreview);
+      form.addEventListener('change', updatePreview);
+      updatePreview();
+
+      document.getElementById('sendEmail').addEventListener('click', () => {
+        const d = getData();
+        if (!d) return;
+
+        const subject = encodeURIComponent('Student Complaint & Feedback | Jazeera University');
+        const body = encodeURIComponent(formatSubmissionText(d));
+        window.location.href = 'mailto:lastkellar@gmail.com?subject=' + subject + '&body=' + body;
+      });
+
+      document.getElementById('sendWhatsApp').addEventListener('click', () => {
+        const d = getData();
+        if (!d) return;
+
+        const text = encodeURIComponent(formatSubmissionText(d));
+        window.open('https://wa.me/252610362525?text=' + text, '_blank', 'noopener');
+      });
+
+      window.addEventListener('DOMContentLoaded', () => {
+        const nameField = document.getElementById('studentName');
+        if (nameField) {
+          nameField.focus({ preventScroll: true });
+          nameField.scrollIntoView({ behavior: 'auto', block: 'center' });
+        }
+      });
+    </script>
+  </body>
+</html>
