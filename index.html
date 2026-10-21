@@ -270,36 +270,41 @@
             </div>
 
             <div class="field">
-              <label for="batch">Batch <span class="required">*</span></label>
-              <input id="batch" name="batch" required placeholder="Example: Batch 12" />
-            </div>
-
-            <div class="field full">
               <label for="faculty">Faculty <span class="required">*</span></label>
               <select id="faculty" name="faculty" required>
                 <option value="">-- Select your faculty --</option>
                 <option>Faculty of Medicine &amp; Surgery</option>
+                <option>Faculty of Dentistry</option>
                 <option>Faculty of Health Sciences</option>
                 <option>Faculty of Engineering &amp; Technology</option>
                 <option>Faculty of Computer Science and IT</option>
-                <option>Faculty of Agricultural Science</option>
-                <option>Faculty of Veterinary Science</option>
                 <option>Faculty of Economics and Management Science</option>
+                <option>Faculty of Agricultural Science</option>
+                <option>Faculty of Veterinary Medicine</option>
                 <option>Faculty of Education</option>
                 <option>Faculty of Sharia</option>
-                <option>Faculty of Dentistry</option>
               </select>
             </div>
 
             <div class="field full">
-              <label for="type">Feedback or complaint type <span class="required">*</span></label>
-              <select id="type" name="type" required>
-                <option value="">-- Select type --</option>
-                <option>Complaint</option>
-                <option>Suggestion</option>
-                <option>Academic issue</option>
-                <option>University services</option>
-                <option>Other</option>
+              <label for="batch">Batch <span class="required">*</span></label>
+              <input id="batch" name="batch" list="batchOptions" required placeholder="Select a faculty first" />
+              <datalist id="batchOptions"></datalist>
+              <div class="help">Batch lists are reviewed against university records where available. Some faculties currently do not publish a public batch list online; in those cases, the official batch can be entered manually.</div>
+            </div>
+
+            <div class="field full">
+              <label for="complaintCategory">Complaint category <span class="required">*</span></label>
+              <select id="complaintCategory" name="complaintCategory" required>
+                <option value="">-- Select complaint category --</option>
+                <option>Student-to-Student Issues</option>
+                <option>Teacher and Student Issues</option>
+                <option>University Facilities and Equipment</option>
+                <option>Teaching and Learning</option>
+                <option>Exam Fee / Examination Payment</option>
+                <option>Tuition and Other University Fees</option>
+                <option>Registration and Student Records</option>
+                <option>Other University-Related Concerns</option>
               </select>
             </div>
 
@@ -320,7 +325,7 @@
             <div class="preview-row"><div class="preview-label">Student name</div><div class="preview-value" id="pvName">—</div></div>
             <div class="preview-row"><div class="preview-label">Faculty</div><div class="preview-value" id="pvFaculty">—</div></div>
             <div class="preview-row"><div class="preview-label">Batch</div><div class="preview-value" id="pvBatch">—</div></div>
-            <div class="preview-row"><div class="preview-label">Type</div><div class="preview-value" id="pvType">—</div></div>
+            <div class="preview-row"><div class="preview-label">Category</div><div class="preview-value" id="pvCategory">—</div></div>
             <div class="preview-row"><div class="preview-label">Details</div><div class="preview-value preview-details" id="pvDetails">—</div></div>
           </section>
 
@@ -339,10 +344,81 @@
 
     <script>
       const form = document.getElementById('feedbackForm');
+      const faculty = document.getElementById('faculty');
+      const batchInput = document.getElementById('batch');
+      const batchOptions = document.getElementById('batchOptions');
+
+      const facultyBatches = {
+        'Faculty of Medicine & Surgery': [
+          'Official batch list not publicly published — enter official batch manually'
+        ],
+        'Faculty of Dentistry': [
+          'Official batch list not publicly published — enter official batch manually'
+        ],
+        'Faculty of Health Sciences': [
+          'Official batch list not publicly published — enter official batch manually'
+        ],
+        'Faculty of Engineering & Technology': [
+          'Official batch list not publicly published — enter official batch manually'
+        ],
+        'Faculty of Computer Science and IT': [
+          'Batch 17 (reported by current records; official confirmation pending)'
+        ],
+        'Faculty of Economics and Management Science': [
+          'Official batch list not publicly published — enter official batch manually'
+        ],
+        'Faculty of Agricultural Science': [
+          'Official batch list not publicly published — enter official batch manually'
+        ],
+        'Faculty of Veterinary Medicine': [
+          'Official batch list not publicly published — enter official batch manually'
+        ],
+        'Faculty of Education': [
+          'Official batch list not publicly published — enter official batch manually'
+        ],
+        'Faculty of Sharia': [
+          'Official batch list not publicly published — enter official batch manually'
+        ]
+      };
+
+      function updateBatchOptions(selectedFaculty) {
+        batchOptions.innerHTML = '';
+        batchInput.value = '';
+        batchInput.placeholder = 'Select or type a batch';
+
+        if (!selectedFaculty) {
+          batchInput.placeholder = 'Select a faculty first';
+          return;
+        }
+
+        const entries = facultyBatches[selectedFaculty] || ['Official batch list not publicly published — enter official batch manually'];
+        entries.forEach((entry) => {
+          const opt = document.createElement('option');
+          opt.value = entry;
+          batchOptions.appendChild(opt);
+        });
+
+        if (selectedFaculty === 'Faculty of Computer Science and IT') {
+          batchInput.placeholder = 'Example: Batch 17 (reported, not officially confirmed)';
+        } else {
+          batchInput.placeholder = 'Official batch list not publicly published — enter official batch manually';
+        }
+      }
+
+      faculty.addEventListener('change', function () {
+        updateBatchOptions(this.value);
+        updatePreview();
+      });
 
       function updatePreview() {
         const data = new FormData(form);
-        const keys = { pvName: 'studentName', pvFaculty: 'faculty', pvBatch: 'batch', pvType: 'type', pvDetails: 'details' };
+        const keys = {
+          pvName: 'studentName',
+          pvFaculty: 'faculty',
+          pvBatch: 'batch',
+          pvCategory: 'complaintCategory',
+          pvDetails: 'details'
+        };
 
         for (const [id, key] of Object.entries(keys)) {
           const el = document.getElementById(id);
@@ -358,7 +434,7 @@
           name: String(data.get('studentName') || '').trim(),
           faculty: String(data.get('faculty') || '').trim(),
           batch: String(data.get('batch') || '').trim(),
-          type: String(data.get('type') || '').trim(),
+          category: String(data.get('complaintCategory') || '').trim(),
           details: String(data.get('details') || '').trim()
         };
       }
@@ -372,7 +448,7 @@
           '👤 *Student Name:* ' + d.name,
           '🏛️ *Faculty:* ' + d.faculty,
           '📚 *Batch:* ' + d.batch,
-          '📌 *Type:* ' + d.type,
+          '📌 *Category:* ' + d.category,
           '',
           '📝 *DETAILS*',
           d.details,
@@ -410,6 +486,7 @@
           nameField.focus({ preventScroll: true });
           nameField.scrollIntoView({ behavior: 'auto', block: 'center' });
         }
+        updateBatchOptions(faculty.value);
       });
     </script>
   </body>
