@@ -273,10 +273,10 @@
               <label for="faculty">Faculty <span class="required">*</span></label>
               <select id="faculty" name="faculty" required>
                 <option value="">-- Select your faculty --</option>
-                <option>Faculty of Medicine &amp; Surgery</option>
+                <option>Faculty of Medicine and Surgery</option>
                 <option>Faculty of Dentistry</option>
                 <option>Faculty of Health Sciences</option>
-                <option>Faculty of Engineering &amp; Technology</option>
+                <option>Faculty of Engineering and Technology</option>
                 <option>Faculty of Computer Science and IT</option>
                 <option>Faculty of Economics and Management Science</option>
                 <option>Faculty of Agricultural Science</option>
@@ -290,7 +290,7 @@
               <label for="batch">Batch <span class="required">*</span></label>
               <input id="batch" name="batch" list="batchOptions" required placeholder="Select a faculty first" />
               <datalist id="batchOptions"></datalist>
-              <div class="help">Batch lists are reviewed against university records where available. Some faculties currently do not publish a public batch list online; in those cases, the official batch can be entered manually.</div>
+              <div class="help">Batch lists are reviewed against university records where available. Where a public batch list is not officially published, the data is marked as manual and may require confirmation from the relevant faculty.</div>
             </div>
 
             <div class="field full">
@@ -301,7 +301,7 @@
                 <option>Teacher and Student Issues</option>
                 <option>University Facilities and Equipment</option>
                 <option>Teaching and Learning</option>
-                <option>Exam Fee / Examination Payment</option>
+                <option>Exam Fee and Examination Payment Issues</option>
                 <option>Tuition and Other University Fees</option>
                 <option>Registration and Student Records</option>
                 <option>Other University-Related Concerns</option>
@@ -349,7 +349,7 @@
       const batchOptions = document.getElementById('batchOptions');
 
       const facultyBatches = {
-        'Faculty of Medicine & Surgery': [
+        'Faculty of Medicine and Surgery': [
           'Official batch list not publicly published — enter official batch manually'
         ],
         'Faculty of Dentistry': [
@@ -358,7 +358,7 @@
         'Faculty of Health Sciences': [
           'Official batch list not publicly published — enter official batch manually'
         ],
-        'Faculty of Engineering & Technology': [
+        'Faculty of Engineering and Technology': [
           'Official batch list not publicly published — enter official batch manually'
         ],
         'Faculty of Computer Science and IT': [
